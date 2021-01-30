@@ -48,11 +48,9 @@ rc24get () {
 	curl --create-dirs -f -k -L -o ${2} -S -s https://patcher.rc24.xyz/update/RiiConnect24-Patcher/v1/${1}
 } >> rc24output.txt 2>&1
 
-
-
 # Get cetk file from SketchMaster2001's website
 sketchgetcetk() {
-	sketchget ${1}/${2}/cetk Temp/Files/Patcher/${1}/${2}/cetk
+	sketchget ${1}/${2}/cetk Temp/Working/${1}/${2}/cetk
 } >> rc24output.txt 2>&1
 
 
@@ -76,10 +74,6 @@ patchios () {
 # Patch title
 patchtitle () {
 	mkdir -p Temp/Working/${1}
-	if [ -f Temp/Files/Patcher/${1}/${region}/cetk ]
-	then
-		cp Temp/Files/Patcher/${1}/${region}/cetk Temp/Working/${1}
-	fi
 	
 	./Sharpii nusd -id ${2}${region_hex} -v ${3} -o Temp/Working/${1} -wad
 	./Sharpii wad -u Temp/Working/${1}/${2}${region_hex}v${3}.wad Temp/Working/${1}
@@ -94,10 +88,6 @@ patchtitle () {
 # Patch title with two patch files
 patchtitle2 () {
 	mkdir -p Temp/Working/${1}
-	if [ -f Temp/Files/Patcher/${1}/${region}/cetk ]
-	then
-		cp Temp/Files/Patcher/${1}/${region}/cetk Temp/Working/${1}
-	fi
 	
 	./Sharpii nusd -id ${2}${region_hex} -v ${3} -o Temp/Working/${1} -wad
 	./Sharpii wad -u Temp/Working/${1}/${2}${region_hex}v${3}.wad Temp/Working/${1}
